@@ -1,0 +1,10 @@
+public double similarity(int j, Document query) {
+		double sim = 0;
+		for (int i = 0; i < T; i++) {
+			if (!query.containsTerm(terms[i])) continue;
+			if (!docs[j].containsTerm(terms[i])) continue;
+			sim += Math.log((R + r[i] + 0.5) / (R - r[i] + 0.5) * (N + r[i] + 0.5) / (n[i] - r[i] + 0.5));
+		}
+		return sim;
+	}
+	
