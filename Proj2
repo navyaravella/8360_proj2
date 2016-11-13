@@ -4,6 +4,24 @@ import java.io.*;
 
 public class Proj2
 {
+}
+public void init(Document[] relevantDocs) {
+		T = terms.length;
+		N = docs.length; 
+		R = relevantDocs.length;
+		n = new int[T];
+		r = new int[T];
+		for (int i = 0; i < T; i++) {
+			n[i] = r[i] = 0;
+			for (int j = 0; j < N; j++) 
+				if (docs[j].containsTerm(terms[i]))
+					n[i]++;
+			
+			for (int j = 0; j < R; j++)
+				if (relevantDocs[j].containsTerm(terms[i]))
+					r[i]++;
+		}
+	}
     
 public static void main(String[] args)
 {
