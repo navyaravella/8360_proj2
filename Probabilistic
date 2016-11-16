@@ -12,7 +12,7 @@ public class Probabilistic {
 	
 	public static void main(String[] args) {
 		Probabilistic probabilistic = new Probabilistic();
-		probabilistic.buildDocuments("C:/Users/adamin/Documents/NetBeansProjects/Probabilistic/src/InputDocs.txt");
+		probabilistic.buildDocuments("InputDocs.txt");
 		
 		int N = probabilistic.docs.length;
 		int T = probabilistic.terms.length;
@@ -24,7 +24,7 @@ public class Probabilistic {
 				
 		FileInputStream fin = null;
 		try {
-                    fin = new FileInputStream("C:/Users/adamin/Documents/NetBeansProjects/Probabilistic/src/query.txt");
+                    fin = new FileInputStream("query.txt");
 		} catch (FileNotFoundException e) {
                     e.printStackTrace();
 		}
