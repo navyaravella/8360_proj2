@@ -31,15 +31,15 @@ public class Probabilistic {
             }
 	}
 }
-public double similarity(int j, Document query) {
+	public double similarity(Document query, int j) {
 		double sim = 0;
 		for (int i = 0; i < T; i++) {
-			if (!query.containsTerm(terms[i])) continue;
 			if (!docs[j].containsTerm(terms[i])) continue;
-			sim += Math.log((R + r[i] + 0.5) / (R - r[i] + 0.5) * (N + r[i] + 0.5) / (n[i] - r[i] + 0.5));
+                        if (!query.containsTerm(terms[i])) continue;
+			sim = sim + Math.log((r[i] + 0.5) / (R - r[i] + 0.5) * (N - n[i] - R + r[i] + 0.5) / (n[i] - r[i] + 0.5));
 		}
 		return sim;
-}
+	}
     
 public static void main(String[] args)
 {
