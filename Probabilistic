@@ -1,0 +1,46 @@
+import java.lang.*;
+import java.util.*;
+import java.io.*;
+
+public class Probabilistic {
+
+	private Document[] docs; // All the documents
+	private String[] terms;  // All the terms in the documents
+        private int R, N;        // Count of relevant documents and total documents
+	int T;                   // Total number of terms	
+	private int[] r, n;      // Count of relevant documents and documents which contains the given term
+	
+	public void initModel(Document[] relDocs) {
+                N = docs.length;
+                R = relDocs.length;
+		T = terms.length;
+		r = new int[T];
+		n = new int[T];
+		for (int i = 0; i < T; i++) {
+			r[i] = n[i] = 0;
+			for (int j = 0; j < R; j++){
+                            if (relDocs[j].containsTerm(terms[i])){
+				r[i]++;
+                            }
+                        }    
+                for (int j = 0; j < N; j++){ 
+                    if (docs[j].containsTerm(terms[i])){
+			n[i]++;
+                    } 
+                }        
+            }
+	}
+}
+public double similarity(int j, Document query) {
+		double sim = 0;
+		for (int i = 0; i < T; i++) {
+			if (!query.containsTerm(terms[i])) continue;
+			if (!docs[j].containsTerm(terms[i])) continue;
+			sim += Math.log((R + r[i] + 0.5) / (R - r[i] + 0.5) * (N + r[i] + 0.5) / (n[i] - r[i] + 0.5));
+		}
+		return sim;
+}
+    
+public static void main(String[] args)
+{
+}
