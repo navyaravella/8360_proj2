@@ -122,4 +122,35 @@ public class Probabilistic {
 		}
 		return sim;
 	}
-    
+}
+class Document {
+	
+	private Set<String> terms; // terms in the document 
+	private String content;    // content of document
+	
+	// Constructor of the class which builds the document and find all the terms in the document
+	public Document(String content) {
+		terms = new HashSet<String>();
+		this.content = content;
+		String[] words = content.split("[^a-z^A-Z]");
+		for (String word : words) {
+			if (word.equals("")) continue;
+			terms.add(word);
+		}
+	}
+	
+	//  Getter method to return the terms of the documents
+	public Set<String> getTerms() {
+		return terms;
+	}
+	
+	// This method checks if the document contains the given term and returns true if present
+	public boolean containsTerm(String term) {
+		return terms.contains(term);
+	}
+	
+	// String representation
+	public String toString() {
+		return content;
+	}
+}
