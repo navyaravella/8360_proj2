@@ -123,6 +123,3 @@ public class Probabilistic {
 		return sim;
 	}
     
-public static void main(String[] args)
-{
-}
