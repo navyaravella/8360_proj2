@@ -1,22 +1,22 @@
 public void buildDocuments(String docFile) {
 		FileInputStream fin = null;
 		try {
-			fin = new FileInputStream(docFile);
+                    fin = new FileInputStream(docFile);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		Scanner sc = new Scanner(fin);
+                    e.printStackTrace();
+                }
 		
-		List<Document> docs = new LinkedList<Document>();
 		Set<String> terms = new HashSet<String>();
-		
+		List<Document> docs = new LinkedList<Document>();
+                
+                Scanner sc = new Scanner(fin);
 		while (sc.hasNext()) {
-			String line = sc.nextLine();
-			Document doc = new Document(line);
-			for (String word : doc.getTerms()) {
-				terms.add(word);
-			}
-			docs.add(doc);
+                    String line = sc.nextLine();
+                    Document doc = new Document(line);
+                    for (String word : doc.getTerms()) {
+			terms.add(word);
+                    }
+                    docs.add(doc);
 		}
 		
 		this.terms = terms.toArray(new String[0]);
