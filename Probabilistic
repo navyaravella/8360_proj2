@@ -10,6 +10,64 @@ public class Probabilistic {
 	int T;                   // Total number of terms	
 	private int[] r, n;      // Count of relevant documents and documents which contains the given term
 	
+	public static void main(String[] args) {
+		Probabilistic probabilistic = new Probabilistic();
+		probabilistic.buildDocuments("C:/Users/adamin/Documents/NetBeansProjects/Probabilistic/src/InputDocs.txt");
+		
+		int N = probabilistic.docs.length;
+		int T = probabilistic.terms.length;
+		double[] sim = new double[N];
+		int[] id = new int[N];
+                
+                System.out.println("Total number of processed documents: " + N);
+                //System.out.println("Total number of distinct words stored in the inverted index: " + T+"\n");
+				
+		FileInputStream fin = null;
+		try {
+                    fin = new FileInputStream("C:/Users/adamin/Documents/NetBeansProjects/Probabilistic/src/query.txt");
+		} catch (FileNotFoundException e) {
+                    e.printStackTrace();
+		}
+		Scanner sc = new Scanner(fin);
+		
+		for (int i = 0; i < N; i++)
+			id[i] = i;
+		
+		// Processing the queries line after line
+		while (sc.hasNext()) {
+			String line = sc.nextLine();
+			Document query = new Document(line);
+			
+			Document[] relDocs = new Document[0];
+			
+			for (int i = 0; i < 3; i++) {
+				probabilistic.initModel(relDocs);
+				for (int j = 0; j < N; j++)
+					sim[j] = probabilistic.similarity(query, j);
+				for (int j = 0; j < N; j++)
+					for (int k = j + 1; k < N; k++)
+						if (sim[id[j]] < sim[id[k]]) {
+							int temp = id[j];
+							id[j] = id[k];
+							id[k] = temp;
+						}
+				relDocs = new Document[10];
+				for (int j = 0; j < 10; j++)
+					relDocs[j] = probabilistic.docs[id[j]];
+			}
+			
+			// Printing the final results
+			System.out.println("Query: " + query);
+			System.out.println("Rank \t"+"Document");
+                        System.out.println("-----------------------------------------------------------------------------------------");
+                        for (int i = 0; i < 12; i++) {
+                            System.out.println((i + 1) + ". "+ "\t"+ probabilistic.docs[id[i]]);
+                            System.out.println((i + 1) + ". " + String.format("%.4f", sim[id[i]]) + " \"" + probabilistic.docs[id[i]] + "\"");
+			}
+                        System.out.println("-----------------------------------------------------------------------------------------");
+			System.out.println("");
+		}
+	}
 	public void initModel(Document[] relDocs) {
                 N = docs.length;
                 R = relDocs.length;
