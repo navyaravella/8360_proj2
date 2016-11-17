@@ -4,11 +4,11 @@ import java.io.*;
 
 public class Probabilistic {
 
-	private Document[] docs; // All the documents
-	private String[] terms;  // All the terms in the documents
-        private int R, N;        // Count of relevant documents and total documents
-	int T;                   // Total number of terms	
-	private int[] r, n;      // Count of relevant documents and documents which contains the given term
+	private Document[] docs;
+	private String[] terms;  
+        private int R, N;       
+	int T;                   	
+	private int[] r, n;      
 	
 	public static void main(String[] args) {
 		Probabilistic probabilistic = new Probabilistic();
@@ -33,7 +33,6 @@ public class Probabilistic {
 		for (int i = 0; i < N; i++)
 			id[i] = i;
 		
-		// Processing the queries line after line
 		while (sc.hasNext()) {
 			String line = sc.nextLine();
 			Document query = new Document(line);
@@ -56,7 +55,6 @@ public class Probabilistic {
 					relDocs[j] = probabilistic.docs[id[j]];
 			}
 			
-			// Printing the final results
 			System.out.println("Query: " + query);
 			System.out.println("Rank \t"+"Document");
                         System.out.println("-----------------------------------------------------------------------------------------");
@@ -125,10 +123,9 @@ public class Probabilistic {
 }
 class Document {
 	
-	private Set<String> terms; // terms in the document 
-	private String content;    // content of document
+	private Set<String> terms; 
+	private String content;    
 	
-	// Constructor of the class which builds the document and find all the terms in the document
 	public Document(String content) {
 		terms = new HashSet<String>();
 		this.content = content;
@@ -139,17 +136,14 @@ class Document {
 		}
 	}
 	
-	//  Getter method to return the terms of the documents
 	public Set<String> getTerms() {
 		return terms;
 	}
 	
-	// This method checks if the document contains the given term and returns true if present
 	public boolean containsTerm(String term) {
 		return terms.contains(term);
 	}
 	
-	// String representation
 	public String toString() {
 		return content;
 	}
