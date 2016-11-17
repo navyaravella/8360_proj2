@@ -1,4 +1,4 @@
-public void init(Document[] relevantDocs) {
+public void initModel(Document[] relevantDocs) {
 		T = terms.length;
 		N = docs.length; 
 		R = relevantDocs.length;
